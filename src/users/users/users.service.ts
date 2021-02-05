@@ -9,12 +9,12 @@ export class UsersService {
     {
       userId: 1,
       username: 'john',
-      password: 'changeme',
+      password: '$2b$10$m2IWsGwd6q0FlflXyb8AQe6bqjfKPEgQXtlXKSljp9AHiR79DDOqe',
     },
     {
       userId: 2,
       username: 'maria',
-      password: 'guess',
+      password: '$2b$10$m2IWsGwd6q0FlflXyb8AQeTh8h9NQdt4oVWNutPRvvxN1AgUgxf5C',
     },
   ];
 
