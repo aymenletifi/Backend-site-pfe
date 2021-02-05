@@ -9,7 +9,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
 
 
 @Module({
-  imports: [AuthModule, UsersModule,
+  imports: [AuthModule,
+    UsersModule,
     MongooseModule.forRoot('mongodb+srv://admin:vyNTZ6aMhtqK7Pkg@cluster0.aupcn.mongodb.net/sample_mflix?retryWrites=true&w=majority'),
     DashboardModule
   ],
