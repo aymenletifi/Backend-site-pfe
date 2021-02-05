@@ -10,4 +10,30 @@ export class UsersService {
   async findOne(username: string): Promise<User | undefined> {
     return this.userModel.findOne({ username: username });
   }
+
+  async findStudents() :  Promise<User[] | undefined> {
+    return this.userModel.find({ role:'student'});
+  }
+
+  async findProfessors() : Promise<User[] | undefined>{
+    return this.userModel.find({role : 'professor'});
+  } 
+  async findAdmins() : Promise <User[] | undefined>{
+    return this.userModel.find({role : 'admin'})
+  }
+
+  async deleteUser(identity : number){
+    const result =  this.userModel.remove({_id : identity});
+    if (result == null){
+      return 'User not Found';
+    }
+  }
+
+  async findUser(identity : number){
+    return this.userModel.findOne({_id : identity});
+  }
+
+  async addUser(user : User){
+    this.userModel.create(user);
+  }
 }
