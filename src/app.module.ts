@@ -7,6 +7,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { TasksController } from './tasks/tasks.controller';
 import { TasksService } from './tasks/tasks.service';
 import { TasksModule } from './tasks/tasks.module';
+import { PfeModule } from './pfes/pfe.module';
 
 
 
@@ -14,7 +15,8 @@ import { TasksModule } from './tasks/tasks.module';
   imports: [AuthModule,
     UsersModule,
     MongooseModule.forRoot('mongodb+srv://admin:vyNTZ6aMhtqK7Pkg@cluster0.aupcn.mongodb.net/sitepfe?retryWrites=true&w=majority'),
-    TasksModule
+    TasksModule,
+    PfeModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -12,9 +12,14 @@ export class TasksService {
         return this.tasksModel.find({}, { __v: false });;
     }
 
+    async findById(id: string): Promise<Task | undefined> {
+        return this.tasksModel.findOne({_id: id}, { __v: false });;
+    }
+
     async createTask(task: TaskDto): Promise<any> {
-        task._id = Types.ObjectId() + "";
-        const createdTask = new this.tasksModel(task);
+        let t: any = task;
+        delete t["_id"];
+        const createdTask = new this.tasksModel(t);
         return { id: (await createdTask.save()).id };
     }
 

@@ -8,8 +8,14 @@ export class TasksController {
     constructor(private tasksService: TasksService) { }
 
     //@UseGuards(JwtAuthGuard)
+    @Get(":id")
+    getTask(@Param('id') id: string) {
+        return this.tasksService.findById(id);
+    }
+
+    //@UseGuards(JwtAuthGuard)
     @Get()
-    getTasks(@Request() req) {
+    getTasks() {
         return this.tasksService.findAll();
     }
 
@@ -22,14 +28,12 @@ export class TasksController {
     //@UseGuards(JwtAuthGuard)
     @Put(':id')
     updateTask(@Param('id') id: string, @Body() taskDto: TaskDto) {
-        console.log(taskDto);
         return this.tasksService.updateTask(id, taskDto);
     }
 
     //@UseGuards(JwtAuthGuard)
     @Delete(':id')
     deleteTask(@Param('id') id: string) {
-        console.log(id);
         return this.tasksService.deleteTask(id);
     }
 }

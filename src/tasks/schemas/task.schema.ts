@@ -22,12 +22,6 @@ export class Task {
 
     @Prop()
     progress: number;
-
-    @Prop({ type: Types.ObjectId, ref: 'User', default: null })
-    student: Types.ObjectId;
-
-    @Prop({ type: Types.ObjectId, ref: 'User', default: null })
-    supervisor: Types.ObjectId;
 }
 
 export const TaskSchema = SchemaFactory.createForClass(Task);
