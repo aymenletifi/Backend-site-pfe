@@ -4,10 +4,12 @@ import { Model } from 'mongoose';
 import { User, UserDocument } from './schemas/user.schema';
 import { userDTO } from './user.dto';
 import * as bcrypt from 'bcrypt';
+import {generate} from 'generate-password' ; 
+import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) { }
+  constructor(@InjectModel(User.name) private userModel: Model<UserDocument> ,private readonly mailerService: MailerService) { }
 
   async findOne(username: string): Promise<User | undefined> {
     return this.userModel.findOne({ username: username });
@@ -40,15 +42,45 @@ export class UsersService {
   }
 
   async addStudent(student : userDTO){
-    student.passwd = await bcrypt.hash(student.passwd, await bcrypt.genSalt());
+    var password = generate({
+      length: 10,
+      numbers: true
+    });
+    student.passwd = await bcrypt.hash(password, await bcrypt.genSalt());
     student.role = 'student';
     this.userModel.create(student); 
+    
+  }
+
+  async addAdmin(admin : userDTO){
+    var password = generate({
+      length: 10,
+      numbers: true
+    });
+    admin.passwd = await bcrypt.hash(password, await bcrypt.genSalt());
+    admin.role = 'admin';
+    this.userModel.create(admin);
+
   }
 
   async addProfessor(professor : userDTO){
-    professor.passwd = await bcrypt.hash(professor.passwd, await bcrypt.genSalt());
+    var password = generate({
+      length: 10,
+      numbers: true
+    });
+    this
+      .mailerService
+      .sendMail({
+        to: 'test@nestjs.com', // list of receivers
+        from: 'noreply@nestjs.com', // sender address
+        subject: 'Creation de Compte', 
+        text: 'welcome', 
+        html: `<b>Bonjour , vous trouverez ci-joint votre mot de passe temporaire</b> $(password)`, // HTML body content
+      })
+    professor.passwd = await bcrypt.hash(password, await bcrypt.genSalt());
     professor.role = 'professor';
     this.userModel.create(professor); 
+    
   }
 
 }
