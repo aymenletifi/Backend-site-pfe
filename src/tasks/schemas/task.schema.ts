@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Types, Schema as s } from 'mongoose';
-import { User } from 'src/users/schemas/user.schema';
+import { Document, Types } from 'mongoose';
 
 export type TaskDocument = Task & Document;
 
@@ -13,10 +12,10 @@ export class Task {
     description: string;
 
     @Prop()
-    date_start: Date;
+    dateStart: Date;
 
     @Prop()
-    date_end: Date;
+    dateEnd: Date;
 
     @Prop()
     status: string;
