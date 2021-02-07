@@ -14,9 +14,10 @@ export class Room {
 
     @Prop()
     messages: [{
-        sender :string;
+        sender:string;
         text:string;
-        date:string
+        date:string;
+        dateHidden: boolean
     }]
 }
 
