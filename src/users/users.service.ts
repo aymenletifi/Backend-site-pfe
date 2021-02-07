@@ -10,7 +10,7 @@ export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) { }
 
   async findOne(username: string): Promise<User | undefined> {
-    return this.userModel.findOne({ username: username });
+    return this.userModel.findOne({ email: username });
   }
 
   async findStudents() :  Promise<User[] | undefined> {
@@ -25,7 +25,7 @@ export class UsersService {
   }
 
   async deleteUser(identity : number){
-    const result =  this.userModel.remove({_id : identity});
+    const result =  this.userModel.remove({_id : identity}).exec();
     if (result == null){
       return 'User not Found';
     }
@@ -40,13 +40,13 @@ export class UsersService {
   }
 
   async addStudent(student : userDTO){
-    student.passwd = await bcrypt.hash(student.passwd, await bcrypt.genSalt());
+    student.password = await bcrypt.hash(student.password, await bcrypt.genSalt());
     student.role = 'student';
     this.userModel.create(student); 
   }
 
   async addProfessor(professor : userDTO){
-    professor.passwd = await bcrypt.hash(professor.passwd, await bcrypt.genSalt());
+    professor.password = await bcrypt.hash(professor.password, await bcrypt.genSalt());
     professor.role = 'professor';
     this.userModel.create(professor); 
   }

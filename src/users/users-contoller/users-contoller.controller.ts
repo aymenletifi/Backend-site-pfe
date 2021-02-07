@@ -3,7 +3,7 @@ import { UsersService } from 'src/users/users.service';
 import { userDTO } from '../user.dto';
 
 
-@Controller('users-contoller')
+@Controller('users')
 export class UsersContollerController {
 
     constructor(private usersService : UsersService){};
@@ -28,12 +28,12 @@ export class UsersContollerController {
         this.usersService.deleteUser(id);
     }
 
-    @Post('student')
+    @Post('addStudent')
     addStudent(@Body() userDto : userDTO){
         this.usersService.addStudent(userDto);
     }
 
-    @Post('professor')
+    @Post('addProfessor')
     addProfessor(@Body() userDto : userDTO){
         this.usersService.addProfessor(userDto);
     }
