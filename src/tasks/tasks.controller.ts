@@ -7,31 +7,31 @@ import { TasksService } from './tasks.service';
 export class TasksController {
     constructor(private tasksService: TasksService) { }
 
-    //@UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard)
     @Get(":id")
     getTask(@Param('id') id: string) {
         return this.tasksService.findById(id);
     }
 
-    //@UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard)
     @Get()
-    getTasks() {
+    getTasks(@Request() req) {
         return this.tasksService.findAll();
     }
 
-    //@UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard)
     @Post()
     createTask(@Body() taskDto: TaskDto) {
         return this.tasksService.createTask(taskDto);
     }
 
-    //@UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard)
     @Put(':id')
     updateTask(@Param('id') id: string, @Body() taskDto: TaskDto) {
         return this.tasksService.updateTask(id, taskDto);
     }
 
-    //@UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard)
     @Delete(':id')
     deleteTask(@Param('id') id: string) {
         return this.tasksService.deleteTask(id);
