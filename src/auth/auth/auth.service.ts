@@ -25,10 +25,11 @@ export class AuthService {
   }
 
   async login(user: any) {
-    // Edit payload here.
     const payload = user;
     return {
       access_token: this.jwtService.sign(payload),
+      expires_at: Date.now() + jwtConstants.expiresIn,
+      uid: user._id
     };
   }
 

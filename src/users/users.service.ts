@@ -17,9 +17,18 @@ export class UsersService {
     return this.userModel.find({ role:'student'});
   }
 
+  async findStudentById(id: string): Promise<User | undefined> {
+    return this.userModel.findOne({ _id: id, role: 'student' });
+  }
+
   async findProfessors() : Promise<User[] | undefined>{
     return this.userModel.find({role : 'professor'});
   } 
+
+  async findProfessorById(id: string): Promise<User | undefined> {
+    return this.userModel.findOne({ _id: id, role: 'professor' });
+  } 
+
   async findAdmins() : Promise <User[] | undefined>{
     return this.userModel.find({role : 'admin'})
   }

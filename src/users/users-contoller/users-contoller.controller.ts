@@ -13,9 +13,19 @@ export class UsersContollerController {
         return this.usersService.findStudents();
     }
 
+    @Get('students/:id')
+    getStudentById(@Param('id') id: string) {
+        return this.usersService.findStudentById(id);
+    }
+
     @Get('professors')
     getProfessors(){
         return this.usersService.findProfessors();
+    }
+
+    @Get('professors/:id')
+    getProfessorById(@Param('id') id: string) {
+        return this.usersService.findProfessorById(id);
     }
 
     @Get('admins')
