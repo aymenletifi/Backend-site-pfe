@@ -3,7 +3,7 @@ import { UsersService } from 'src/users/users.service';
 import { userDTO } from '../user.dto';
 
 
-@Controller('users-contoller')
+@Controller('users')
 export class UsersContollerController {
 
     constructor(private usersService : UsersService){};
@@ -13,9 +13,19 @@ export class UsersContollerController {
         return this.usersService.findStudents();
     }
 
+    @Get('students/:id')
+    getStudentById(@Param('id') id: string) {
+        return this.usersService.findStudentById(id);
+    }
+
     @Get('professors')
     getProfessors(){
         return this.usersService.findProfessors();
+    }
+
+    @Get('professors/:id')
+    getProfessorById(@Param('id') id: string) {
+        return this.usersService.findProfessorById(id);
     }
 
     @Get('admins')
@@ -28,12 +38,12 @@ export class UsersContollerController {
         this.usersService.deleteUser(id);
     }
 
-    @Post('student')
+    @Post('addStudent')
     addStudent(@Body() userDto : userDTO){
         this.usersService.addStudent(userDto);
     }
 
-    @Post('professor')
+    @Post('addProfessor')
     addProfessor(@Body() userDto : userDTO){
         this.usersService.addProfessor(userDto);
     }

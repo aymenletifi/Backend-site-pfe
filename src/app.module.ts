@@ -8,6 +8,7 @@ import { TasksController } from './tasks/tasks.controller';
 import { TasksService } from './tasks/tasks.service';
 import { TasksModule } from './tasks/tasks.module';
 import { PfeModule } from './pfes/pfe.module';
+import { ChatModule } from './chat/chat.module';
 
 
 
@@ -16,7 +17,8 @@ import { PfeModule } from './pfes/pfe.module';
     UsersModule,
     MongooseModule.forRoot('mongodb+srv://admin:vyNTZ6aMhtqK7Pkg@cluster0.aupcn.mongodb.net/sitepfe?retryWrites=true&w=majority'),
     TasksModule,
-    PfeModule
+    PfeModule,
+    ChatModule
   ],
   controllers: [AppController],
   providers: [AppService],

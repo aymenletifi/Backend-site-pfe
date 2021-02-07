@@ -7,35 +7,37 @@ import { PfeService } from './pfe.service';
 export class PfeController {
     constructor(private pfeService: PfeService) { }
 
-    //@UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard)
     @Get()
     getPfes(@Request() req) {
         return this.pfeService.findAll();
     }
 
-    //@UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard)
     @Post()
     createPfe(@Body() pfeDto: PfeDto) {
         return this.pfeService.createPfe(pfeDto);
     }
 
-    //@UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard)
     @Put(':id')
     updatePfe(@Param('id') id: string, @Body() pfeDto: PfeDto) {
         return this.pfeService.updatePfe(id, pfeDto);
     }
 
-    //@UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard)
     @Delete(':id')
     deletePfe(@Param('id') id: string) {
         return this.pfeService.deletePfe(id);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get("student/:id")
     async getPfeByStudentId(@Param('id') sid: string) {
         return this.pfeService.findByStudentId(sid);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get("supervisor/:id")
     getPfeBySupervisorId(@Param('id') sid: string) {
         return this.pfeService.findBySupervisorId(sid);
