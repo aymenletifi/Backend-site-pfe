@@ -17,15 +17,19 @@ export class AuthService {
     const user = await this.usersService.findOne(username);
     if (user && await bcrypt.compare(pass, user.password)) {
       const { password, ...result } = user;
-      return result;
+      let ret = (result as any)._doc;
+      delete ret["password"];
+      return ret;
     }
     return null;
   }
 
   async login(user: any) {
-    const payload = { username: user.username, sub: user.userId };
+    const payload = user;
     return {
       access_token: this.jwtService.sign(payload),
+      expires_at: Date.now() + jwtConstants.expiresIn,
+      uid: user._id
     };
   }
 

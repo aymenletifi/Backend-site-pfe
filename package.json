@@ -30,6 +30,8 @@
     "@nestjs/platform-socket.io": "^7.6.11",
     "@nestjs/websockets": "^7.6.11",
     "bcrypt": "^5.0.0",
+    "class-transformer": "^0.3.2",
+    "class-validator": "^0.13.1",
     "mongoose": "^5.11.15",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
