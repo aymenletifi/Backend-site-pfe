@@ -1,8 +1,11 @@
 import { WebSocketGateway, WebSocketServer, SubscribeMessage, OnGatewayConnection, OnGatewayDisconnect } from '@nestjs/websockets';
 import {Socket, Server} from 'socket.io'
+import { ChatService } from './chat/chat.service';
 
 @WebSocketGateway()
 export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
+
+    constructor(private chatService:ChatService){}
 
     @WebSocketServer() server;
     users: number = 0;
@@ -34,9 +37,13 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     }
 
     @SubscribeMessage('joinRoom')
-    async joinRoom(client: Socket, room : string){
-        client.join(room);
-        client.emit('roomJoined',room)
+    async joinRoom(client: Socket, user1 : string, user2:string){
+        const room = await this.chatService.findRoom(user1,user2);
+        if(room == null){
+            await this.chatService.addRoom(user1, user2);
+        }else{
+            client.join(room);
+        }
     }
     @SubscribeMessage('leaveRoom')
     async leaveRoom(client: Socket, room : string){
