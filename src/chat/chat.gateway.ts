@@ -45,10 +45,14 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
             client.join(room);
         }
     }
+
     @SubscribeMessage('leaveRoom')
-    async leaveRoom(client: Socket, room : string){
-        client.leave(room);
-        client.emit('roomJoined',room)
+    async leaveRoom(client: Socket, user1 : string, user2:string){
+        const room = await this.chatService.findRoom(user1,user2);
+        if(room != null){
+            client.leave(room);
+            client.emit('roomJoined',room)
+        }
     }
 
 }
