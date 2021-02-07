@@ -1,4 +1,5 @@
 import { WebSocketGateway, WebSocketServer, SubscribeMessage, OnGatewayConnection, OnGatewayDisconnect } from '@nestjs/websockets';
+import {Socket, Server} from 'socket.io'
 
 @WebSocketGateway()
 export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
@@ -26,9 +27,21 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
     }
 
+
     @SubscribeMessage('chat')
-    async onChat(client, message){
-        client.broadcast.emit('chat', message);
+    async onChat(client: Socket, message : {sender: string, text: string, room:string}){
+        client.to(message.room).emit('chat',message)
+    }
+
+    @SubscribeMessage('joinRoom')
+    async joinRoom(client: Socket, room : string){
+        client.join(room);
+        client.emit('roomJoined',room)
+    }
+    @SubscribeMessage('leaveRoom')
+    async leaveRoom(client: Socket, room : string){
+        client.leave(room);
+        client.emit('roomJoined',room)
     }
 
 }
